@@ -31,7 +31,7 @@
             </div>
             <h2 class="card-title"><%= blogs[0].title %></h2>
             <p class="card-text"><%= blogs[0].text.slice(0, 100) %>...</p>
-            <a class="btn btn-primary" href="/blogs/<%= blogs[0]._id%>"
+            <a class="btn btn-dark" href="/blogs/<%= blogs[0]._id%>"
               >Read more →</a
             >
           </div>
@@ -55,7 +55,7 @@
                 </div>
                 <h2 class="card-title h4"><%= blogs[i].title %></h2>
                 <p class="card-text"><%= blogs[i].text.slice(0, 100) %>...</p>
-                <a class="btn btn-primary" href="/blogs/<%= blogs[i]._id%>"
+                <a class="btn btn-dark" href="/blogs/<%= blogs[i]._id%>"
                   >Read more →</a
                 >
               </div>
@@ -78,7 +78,7 @@
                 aria-label="Enter search term..."
                 aria-describedby="button-search"
               />
-              <button class="btn btn-primary" id="button-search" type="button">
+              <button class="btn btn-dark" id="button-search" type="button">
                 Go!
               </button>
             </div>

@@ -1,7 +1,5 @@
-const User = require("../module/User");
-const passport = require("passport");
 const Blog = require("../module/Blog");
-
+const markdown = require("markdown-it")();
 module.exports.allblogs = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 5;
@@ -27,13 +25,23 @@ module.exports.allblogs = async (req, res) => {
   }
 };
 
-//create
+module.exports.renderCreate = async (req, res) => {
+  var convertedMarkdown;
+  res.render("blogs/create", { convertedMarkdown });
+};
+module.exports.create = async (req, res) => {};
+
 //edit
 //delete
 //show
 
 module.exports.show = async (req, res) => {
   const id = req.params.id;
-  const blog = await Blog.findById(id).populate("author");
+  const blog = await Blog.findById(id)
+    .populate("author")
+    .populate({
+      path: "reviews",
+      populate: { path: "author" },
+    });
   res.render("blogs/show", { blog: blog });
 };

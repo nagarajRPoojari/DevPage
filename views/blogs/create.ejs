@@ -1,0 +1,80 @@
+<% layout('layouts/boilerplate') %>
+<form action="/blogs/create" method="post">
+  <input type="text" id="big-input" placeholder="Enter Title..." />
+  <button
+    type="submit"
+    id="submit"
+    class="text-muted d-inline-flex justify-content-end me-0"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="16"
+      height="16"
+      fill="currentColor"
+      class="bi bi-plus-circle"
+      viewBox="0 0 16 16"
+      id="icon"
+    >
+      <path
+        d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+      />
+      <path
+        d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+      />
+    </svg>
+    <h1 class="">Post</h1>
+  </button>
+  <hr />
+
+  <textarea
+    name="description"
+    id="description"
+    cols="30"
+    rows="4"
+    placeholder="Outline..."
+  ></textarea>
+  <hr />
+  <textarea
+    name="text"
+    id="text"
+    cols="30"
+    rows="50"
+    placeholder="Full text..."
+  ></textarea>
+</form>
+<style>
+  #big-input {
+    font-size: 50px;
+    font-weight: bold;
+    width: 70%;
+    border: none;
+  }
+
+  #description {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: bold;
+    width: 70%; /* Adjust the width as needed */
+    border: none;
+  }
+  #text {
+    font-size: 20px; /* Adjust the font size as needed */
+    font-weight: normal;
+    width: 70%; /* Adjust the width as needed */
+    border: none;
+  }
+  svg {
+    margin-right: 10px;
+    width: 50px; /* Set the desired width */
+    height: 50px; /* Set the desired height */
+  }
+  #submit {
+    border: none;
+    background-color: transparent;
+  }
+  #big-input:focus,
+  #description:focus,
+  #text:focus {
+    outline: none; /* Remove default focus outline */
+    border-color: transparent; /* Set border color to transparent */
+  }
+</style>

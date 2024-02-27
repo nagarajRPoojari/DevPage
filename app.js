@@ -16,6 +16,7 @@ const passport = require("passport");
 const GitHubStrategy = require("passport-github2").Strategy;
 const userRoutes = require("./router/user");
 const blogRoutes = require("./router/blog");
+const reviewRoutes = require("./router/review");
 const { isLoggedIn, isloggedin } = require("./middlewares");
 const flash = require("connect-flash");
 const User = require("./module/User");
@@ -119,7 +120,7 @@ app.get(
 app.get(
   "/auth/github/callback",
   passport.authenticate("github", {
-    successRedirect: "/auth/user/profile",
+    successRedirect: "/blogs",
     failureRedirect: "/auth/user/login",
   })
 );
@@ -127,6 +128,7 @@ app.get(
 app.use("/", blogRoutes);
 
 app.use("/auth", userRoutes);
+app.use("/", reviewRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");

@@ -1,9 +1,10 @@
 <% layout('layouts/boilerplate') %>
 <body>
+  <link rel="stylesheet" href="/public/css/blog-show.css" />
   <header class="py-5 bg-light border-bottom mb-4">
     <div class="container">
       <div class="text-center my-5">
-        <h1 class="fw-bolder">Single Blog Post</h1>
+        <h1 class="fw-bolder"><%= blog.title %></h1>
         <p class="lead mb-0">Read the latest post from our blog</p>
       </div>
     </div>
@@ -15,13 +16,9 @@
         <!-- Blog post-->
         <article class="blog-post">
           <!-- Featured image-->
-          <img
-            class="img-fluid rounded mb-4"
-            src="<%= blog.imageURL %>"
-            alt="<%= blog.title %>"
-          />
+
           <!-- Title-->
-          <h1 class="fw-bolder mb-1"><%= blog.title %></h1>
+
           <!-- Author and date-->
           <p class="text-muted mb-2">
             Posted by <%= blog.author.username %> on <%=
@@ -67,105 +64,79 @@
             <div class="d-flex flex-column col-md-12">
               <div class="coment-bottom bg-white p-2 px-4">
                 <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-                  <img
-                    class="img-fluid img-responsive rounded-circle mr-2"
-                    src="https://i.imgur.com/qdiP4DB.jpg"
-                    width="38"
-                  /><input
-                    type="text"
-                    class="form-control mr-3"
-                    placeholder="Add comment"
-                  /><button class="btn btn-primary" type="button">
-                    Comment
-                  </button>
+                  <form
+                    action="/blogs/<%= blog._id %>"
+                    method="POST"
+                    class="d-flex align-end justify-content-around col-md-12"
+                  >
+                    <textarea
+                      class="form-control"
+                      placeholder="write a comment..."
+                      rows="1"
+                      name="text"
+                    ></textarea>
+                    <br />
+                    <button
+                      type="submit"
+                      class="btn btn-secondary pull-right ms-2"
+                    >
+                      Post
+                    </button>
+                  </form>
                 </div>
+                <% for(let review of blog.reviews){ %>
                 <div class="commented-section mt-2">
                   <div
                     class="d-flex flex-row align-items-center commented-user"
                   >
-                    <h5 class="mr-2">Corey oates</h5>
+                    <h5 class="mr-2"><%=review.author.username %></h5>
                     <span class="dot mb-1"></span
-                    ><span class="mb-1 ml-2">4 hours ago</span>
+                    ><span class="mb-1 ml-2"
+                      ><%= review.posted_date.toDateString() %></span
+                    >
                   </div>
                   <div class="comment-text-sm">
-                    <span
-                      >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua. Ut enim ad minim veniam, quis nostrud exercitation
-                      ullamco laboris nisi ut aliquip ex ea commodo
-                      consequat.</span
-                    >
+                    <span><%= review.text %></span>
                   </div>
                   <div class="reply-section">
                     <div
                       class="d-flex flex-row align-items-center voting-icons"
                     >
                       <i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i
-                      ><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i
-                      ><span class="ml-2">10</span
-                      ><span class="dot ml-2"></span>
-                      <h6 class="ml-2 mt-1">Reply</h6>
+                      ><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i>
                     </div>
+                    <form
+                      id="likeDislikeForm"
+                      action="/blogs/<%= blog._id%>/<%= review._id %>/"
+                      method="POST"
+                    >
+                      <input
+                        type="hidden"
+                        id="action"
+                        name="action"
+                        value="like"
+                      />
+                      <span id="likeCount"
+                        ><i class="bi bi-heart"></i> <%= review.likes %></span
+                      >
+                      <button
+                        type="button"
+                        id="likeButton"
+                        onclick="likePost()"
+                      >
+                        <i class="bi bi-hand-thumbs-up"></i> Like
+                      </button>
+                      <button
+                        type="button"
+                        id="dislikeButton"
+                        onclick="dislikePost()"
+                      >
+                        <i class="bi bi-hand-thumbs-down"></i> Dislike
+                      </button>
+                    </form>
                   </div>
                 </div>
-                <div class="commented-section mt-2">
-                  <div
-                    class="d-flex flex-row align-items-center commented-user"
-                  >
-                    <h5 class="mr-2">Samoya Johns</h5>
-                    <span class="dot mb-1"></span
-                    ><span class="mb-1 ml-2">5 hours ago</span>
-                  </div>
-                  <div class="comment-text-sm">
-                    <span
-                      >Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                      sed do eiusmod tempor incididunt ut labore et dolore magna
-                      aliqua..</span
-                    >
-                  </div>
-                  <div class="reply-section">
-                    <div
-                      class="d-flex flex-row align-items-center voting-icons"
-                    >
-                      <i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i
-                      ><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i
-                      ><span class="ml-2">15</span
-                      ><span class="dot ml-2"></span>
-                      <h6 class="ml-2 mt-1">Reply</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="commented-section mt-2">
-                  <div
-                    class="d-flex flex-row align-items-center commented-user"
-                  >
-                    <h5 class="mr-2">Makhaya andrew</h5>
-                    <span class="dot mb-1"></span
-                    ><span class="mb-1 ml-2">10 hours ago</span>
-                  </div>
-                  <div class="comment-text-sm">
-                    <span
-                      >Nunc sed id semper risus in hendrerit gravida rutrum. Non
-                      odio euismod lacinia at quis risus sed. Commodo
-                      ullamcorper a lacus vestibulum sed arcu non odio euismod.
-                      Enim facilisis gravida neque convallis a. In mollis nunc
-                      sed id. Adipiscing elit pellentesque habitant morbi
-                      tristique senectus et netus. Ultrices mi tempus imperdiet
-                      nulla malesuada pellentesque.</span
-                    >
-                  </div>
-                  <div class="reply-section">
-                    <div
-                      class="d-flex flex-row align-items-center voting-icons"
-                    >
-                      <i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i
-                      ><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i
-                      ><span class="ml-2">25</span
-                      ><span class="dot ml-2"></span>
-                      <h6 class="ml-2 mt-1">Reply</h6>
-                    </div>
-                  </div>
-                </div>
+                <% } %>
               </div>
             </div>
           </div>
@@ -175,7 +146,18 @@
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/public/js/scripts.js"></script>
+  <script src="/public/js/blog-show.js"></script>
 </body>
+
+<script
+  src="https://kit.fontawesome.com/a076d05399.js"
+  crossorigin="anonymous"
+></script>
+
+<link
+  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+  rel="stylesheet"
+/>
 
 <style>
   body {
@@ -214,4 +196,43 @@
   .hit-voting {
     cursor: pointer;
   }
+
+  #likeDislikeForm {
+    display: flex;
+    align-items: center;
+  }
+
+  #likeDislikeForm button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 16px;
+    color: #333;
+  }
+
+  #likeDislikeForm button i {
+    margin-right: 5px;
+  }
+
+  #likeButton:hover,
+  #dislikeButton:hover {
+    color: #007bff;
+  }
+
+  #likeButton i:hover,
+  #dislikeButton i:hover {
+    transform: scale(1.2);
+  }
 </style>
+<script>
+  function likePost() {
+    document.getElementById("action").value = "like";
+    document.getElementById("likeDislikeForm").submit();
+  }
+
+  function dislikePost() {
+    document.getElementById("action").value = "dislike";
+    document.getElementById("likeDislikeForm").submit();
+  }
+</script>

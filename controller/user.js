@@ -24,7 +24,7 @@ module.exports.logout = (req, res, next) => {
       }
     });
   });
-  res.redirect("/");
+  res.redirect("/blogs");
 };
 module.exports.auth = (req, res, next) => {
   passport.authenticate("github", {
