@@ -1,0 +1,32 @@
+<% layout('layouts/boilerplate') %>
+<body>
+  <div class="container">
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <div class="card p-4">
+          <h5 class="card-title text-center mb-4">Login or Sign Up</h5>
+          <img
+            class="mr-2 img-fluid mx-auto my-3"
+            width="50"
+            height="50"
+            src="https://cdn-icons-png.flaticon.com/256/25/25231.png"
+            alt="GitHub Icon"
+            class="mr-2"
+          />
+          <div class="text-center mb-4">
+            <a
+              href="/auth/user/login"
+              class="btn btn-outline-dark btn-block mb-2"
+            >
+              Login with GitHub
+            </a>
+          </div>
+          <p class="text-center text-dark">
+            Don't have an account?
+            <a href="/auth/user/register" class="text-dark">Sign Up</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

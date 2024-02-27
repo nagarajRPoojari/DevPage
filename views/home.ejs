@@ -3,31 +3,53 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>YelpCamp</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="/stylesheets/home.css" />
   </head>
-  <body>
-    <h1>Hi Hello, This is the home page</h1>
-    <button id="myButton">Click me</button>
-  </body>
-  <script>
-    const accessToken = localStorage.getItem("accessToken"); // Retrieve token from local storage
-    const button = document.getElementById("myButton");
-    const clientId = "2rvj8vni1s7nvgbk7vk18mktj";
-    const domainName = "nags";
-    const redirectUri = "http%3A%2F%2Flocalhost%3A8000";
-    const login_url = `https://${domainName}.auth.ap-south-1.amazoncognito.com/login?client_id=${clientId}&response_type=token&scope=email+openid+phone&redirect_uri=${redirectUri}`;
 
-    function login() {
-      fetch("/login", {
-        method: "GET",
-      })
-        .then((response) => {
-          console.log(response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }
-    button.addEventListener("click", login);
-  </script>
+  <body class="d-flex text-center text-white bg-dark">
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="mb-auto">
+        <div id="navbar">
+          <h3 class="float-sm-start mb-0" id="logo">DevPage</h3>
+          <nav
+            class="nav nav-masthead justify-content-center float-sm-end"
+            id="nav-child"
+          >
+            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="/campgrounds">Blogs</a>
+            <% if(!currentUser) { %>
+            <a class="nav-link" href="/auth/user/login">Login</a>
+            <a class="nav-link" href="/auth/user/register">Register</a>
+            <% } else { %>
+            <a class="nav-link" href="/auth/user/logout">Logout</a>
+            <% } %>
+          </nav>
+        </div>
+      </header>
+      <main class="px-3">
+        <h1>DevPage</h1>
+        <p class="lead">
+          Welcome to DevPage! <br />
+          Jump right in and explore our many campgrounds. <br />
+          Feel free to share some of your own and comment on others!
+        </p>
+        <a
+          href="/campgrounds"
+          class="btn btn-lg btn-secondary text-black font-weight-bold border-white bg-white"
+          >See what's new
+        </a>
+      </main>
+
+      <footer class="mt-auto text-white-50">
+        <p>&copy; 2022</p>
+      </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>
