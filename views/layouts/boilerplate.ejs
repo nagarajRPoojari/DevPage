@@ -15,7 +15,14 @@
       rel="stylesheet"
     />
   </head>
-
+  <style>
+    body {
+      /* Make the body a flex container with column direction */
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* Ensure the body takes at least the height of the viewport */
+    }
+  </style>
   <body class="d-flex flex-column">
     <%- include('../partials/navbar') %>
 

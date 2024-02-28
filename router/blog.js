@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const blogs = require("../controller/blog");
-const { isLoggedIn, isloggedin } = require("../middlewares");
+const { isloggedin } = require("../middlewares");
 router.route("/blogs/").get(blogs.allblogs);
 router.route("/blogs/create").get(isloggedin, blogs.renderCreate);
 router.route("/blogs/:id").get(isloggedin, blogs.show);

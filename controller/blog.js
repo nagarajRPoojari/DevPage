@@ -29,7 +29,26 @@ module.exports.renderCreate = async (req, res) => {
   var convertedMarkdown;
   res.render("blogs/create", { convertedMarkdown });
 };
-module.exports.create = async (req, res) => {};
+
+module.exports.create = async (req, res) => {
+  try {
+    const categories = req.body.categories.split(",");
+    const blog = await Blog.insertMany({
+      author: req.user,
+      title: req.body.title,
+      text: req.body.text,
+      description: req.body.description,
+      categories: categories,
+    });
+    const blogId = blog[0]._id;
+
+    res.redirect(`/blogs/${blogId}`);
+  } catch (error) {
+    // Handle errors
+    console.error(error);
+    res.status(500).send("Error creating blog");
+  }
+};
 
 //edit
 //delete

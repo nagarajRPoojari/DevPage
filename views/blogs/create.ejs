@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplate') %>
 <form action="/blogs/create" method="post">
-  <input type="text" id="big-input" placeholder="Enter Title..." />
+  <input type="text" id="big-input" placeholder="Enter Title..." name="title" />
   <button
     type="submit"
     id="submit"
@@ -11,7 +11,7 @@
       width="16"
       height="16"
       fill="currentColor"
-      class="bi bi-plus-circle"
+      class="bi bi-plus-circle post-icon"
       viewBox="0 0 16 16"
       id="icon"
     >
@@ -24,6 +24,52 @@
     </svg>
     <h1 class="">Post</h1>
   </button>
+  <div class="row">
+    <div class="col">
+      <!-- Search Bar -->
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control form-control-sm border-0 border-radius-5"
+          style="max-width: 150px"
+          id="categoryInput"
+          placeholder="Enter category..."
+          aria-label="Category"
+          aria-describedby="addCategoryButton"
+        />
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary border-0"
+            type="button"
+            id="addCategoryButton"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-plus-circle"
+              viewBox="0 0 16 16"
+              id="icon"
+            >
+              <path
+                d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"
+              />
+              <path
+                d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4"
+              />
+            </svg>
+          </button>
+        </div>
+        <div
+          class="d-flex justify-content-start"
+          id="categoryContainer"
+          name="categories"
+        ></div>
+      </div>
+    </div>
+  </div>
+
   <hr />
 
   <textarea
@@ -33,6 +79,7 @@
     rows="4"
     placeholder="Outline..."
   ></textarea>
+
   <hr />
   <textarea
     name="text"
@@ -41,13 +88,18 @@
     rows="50"
     placeholder="Full text..."
   ></textarea>
+
+  <!-- Hidden input field to store categories -->
+  <input type="hidden" id="categoriesInput" name="categories" />
 </form>
+
 <style>
   #big-input {
     font-size: 50px;
     font-weight: bold;
     width: 70%;
     border: none;
+    font-family: Garamond;
   }
 
   #description {
@@ -55,14 +107,16 @@
     font-weight: bold;
     width: 70%; /* Adjust the width as needed */
     border: none;
+    font-family: Garamond;
   }
   #text {
     font-size: 20px; /* Adjust the font size as needed */
     font-weight: normal;
     width: 70%; /* Adjust the width as needed */
     border: none;
+    font-family: Garamond;
   }
-  svg {
+  .post-icon {
     margin-right: 10px;
     width: 50px; /* Set the desired width */
     height: 50px; /* Set the desired height */
@@ -78,3 +132,30 @@
     border-color: transparent; /* Set border color to transparent */
   }
 </style>
+<script>
+  document
+    .getElementById("addCategoryButton")
+    .addEventListener("click", function () {
+      var input = document.getElementById("categoryInput");
+      var categoryName = input.value.trim();
+      if (categoryName !== "") {
+        var categoryContainer = document.getElementById("categoryContainer");
+        var badge = document.createElement("span");
+        badge.classList.add(
+          "badge",
+          "rounded-pill",
+          "text-dark",
+          "align-self-center",
+          "text-bg-secondar"
+        );
+        badge.textContent = categoryName;
+        categoryContainer.appendChild(badge);
+        input.value = "";
+
+        var categoriesInput = document.getElementById("categoriesInput");
+        var categories = categoriesInput.value.split(",");
+        categories.push(categoryName);
+        categoriesInput.value = categories.join(",");
+      }
+    });
+</script>

@@ -17,7 +17,6 @@ db.once("open", () => {
 });
 //5099803df3f4948b56950098
 const seeDB = async () => {
-  const reviews = await Review.find({});
-  console.log(reviews);
+  await Blog.deleteMany({});
 };
 seeDB();
