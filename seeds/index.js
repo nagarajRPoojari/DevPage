@@ -32,18 +32,8 @@ function getRandomSubset(arr) {
   return shuffledArr.slice(0, numberOfElements); // Return a subset of the shuffled array
 }
 const seeDB = async () => {
-  try {
-    // Construct update query
-    const filter = {}; // Empty filter selects all documents
-    const update = { $set: { category: getRandomSubset(categories) } }; // Update to apply
-
-    // Execute updateMany operation
-    const result = await Blog.updateMany(filter, update);
-
-    console.log(`${result.nModified} blogs updated successfully.`);
-  } catch (error) {
-    console.error("Error updating categories:", error);
-  }
+  const a = await User.find({});
+  console.log(a);
 };
 
 seeDB();

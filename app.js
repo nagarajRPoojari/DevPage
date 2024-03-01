@@ -80,10 +80,13 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
-        const user = await User.findById("5099803df3f4948b" + profile.id);
+        let modId = "5099803df3f4948b" + profile.id;
+        modId = modId.slice(-24);
+        const id = new mongoose.Types.ObjectId(modId);
+        const user = await User.findById(id);
         if (!user) {
           const newUser = new User({
-            _id: "5099803df3f4948b" + profile.id,
+            _id: id,
             username: profile.username,
             email: profile.emails ? profile.emails[0].value : null,
           });
@@ -134,12 +137,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.all("*", (req, res, next) => {
-  next(new ExpressError("PAGE NOT FOUND!!!!", 404));
-});
-
 app.use((err, req, res, next) => {
   const { statusCode = 500 } = err;
+  console.log(err);
   if (!err.message) err.message = "oh No,Something went wrong";
   res.status(statusCode).render("error", { err });
 

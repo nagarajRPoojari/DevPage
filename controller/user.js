@@ -32,12 +32,44 @@ module.exports.auth = (req, res, next) => {
     failureRedirect: "/auth/user/login",
   });
 };
-module.exports.profile = (req, res, next) => {
-  res.json(req.user);
+module.exports.profile = async (req, res, next) => {
+  const userId = req.user._id;
+  const user = await User.findById(userId);
+  res.render("user/profile.ejs", { user: user });
 };
 
 module.exports.user = async (req, res, next) => {
   const userId = req.params.id;
+  if (req.user._id == userId) res.redirect("/auth/user/profile");
   const user = await User.findById(userId);
-  if (user) res;
+  res.render("user/user.ejs", { user: user });
+};
+
+module.exports.updateProfile = async (req, res) => {
+  const data = req.body;
+  const id = req.user._id;
+  const user = await User.updateMany(
+    { _id: id },
+    {
+      first_name: data.inputFirstName,
+      last_name: data.inputLastName,
+      education: data.inputEducation,
+      address: data.inputAddress,
+      country: data.inputCountry,
+      company: data.inputCompany,
+      job: data.inputJob,
+      email: data.inputEmail,
+      social_media_urls: [
+        data.inputYoutube,
+        data.inputX,
+        data.inputFacebook,
+        data.inputLinkedIn,
+      ],
+      phone: data.inputPhone,
+      about: data.inputAbout,
+      skills: data.inputSkills.split(","),
+    }
+  );
+
+  res.redirect("/auth/user/profile");
 };

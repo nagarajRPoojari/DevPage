@@ -1,1 +1,287 @@
 <% layout('layouts/boilerplate')%>
+<!-- Profile 1 - Bootstrap Brain Component -->
+<section class="bg-light py-3 py-md-5 py-xl-8">
+  <div class="container">
+    <div class="row gy-4 gy-lg-0">
+      <div class="col-12 col-lg-4 col-xl-3">
+        <div class="row gy-4">
+          <div class="col-12">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-header text-bg-secondary">
+                Welcome, <%= user.username %>
+              </div>
+              <div class="card-body">
+                <div class="text-center mb-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="100"
+                    height="100"
+                    fill="currentColor"
+                    class="bi bi-person-circle text-muted"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                    <path
+                      fill-rule="evenodd"
+                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                    />
+                  </svg>
+                </div>
+                <h5 class="text-center mb-1"><%= user.username %></h5>
+                <p class="text-center text-secondary mb-4"><%= user.job %></p>
+                <ul class="list-group list-group-flush mb-4">
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <h6 class="m-0">Followers</h6>
+                    <span><%= user.followers.length %></span>
+                  </li>
+                  <li
+                    class="list-group-item d-flex justify-content-between align-items-center"
+                  >
+                    <h6 class="m-0">Following</h6>
+                    <span><%= user.following.length %></span>
+                  </li>
+                </ul>
+                <div class="d-grid m-0">
+                  <form action="" method="post">
+                    <button class="btn btn-outline-secondary" type="button">
+                      Follow
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-header text-bg-secondary">Social Accounts</div>
+              <div class="card-body">
+                <a
+                  href="#!"
+                  class="d-inline-block bg-secondary link-light lh-1 p-2 rounded"
+                >
+                  <i class="bi bi-youtube"></i>
+                </a>
+                <a
+                  href="#!"
+                  class="d-inline-block bg-secondary link-light lh-1 p-2 rounded"
+                >
+                  <i class="bi bi-twitter-x"></i>
+                </a>
+                <a
+                  href="#!"
+                  class="d-inline-block bg-secondary link-light lh-1 p-2 rounded"
+                >
+                  <i class="bi bi-facebook"></i>
+                </a>
+                <a
+                  href="#!"
+                  class="d-inline-block bg-secondary link-light lh-1 p-2 rounded"
+                >
+                  <i class="bi bi-linkedin"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-header text-bg-secondary">About Me</div>
+              <div class="card-body">
+                <ul class="list-group list-group-flush mb-0">
+                  <li class="list-group-item">
+                    <h6 class="mb-1">
+                      <span class="bii bi-mortarboard-fill me-2"></span>
+                      Education
+                    </h6>
+                    <span><%= user.education %></span>
+                  </li>
+                  <li class="list-group-item">
+                    <h6 class="mb-1">
+                      <span class="bii bi-geo-alt-fill me-2"></span>
+                      Location
+                    </h6>
+                    <span><%= user.address %></span>
+                  </li>
+                  <li class="list-group-item">
+                    <h6 class="mb-1">
+                      <span class="bii bi-building-fill-gear me-2"></span>
+                      Company
+                    </h6>
+                    <span><%= user.company %></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="card widget-card border-light shadow-sm">
+              <div class="card-header text-bg-secondary">Skills</div>
+              <div class="card-body">
+                <% for(let skill of user.skills) { %>
+                <span class="badge text-bg-secondary"><%= skill %></span>
+
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-12 col-lg-8 col-xl-9">
+        <div class="card widget-card border-light shadow-sm">
+          <div class="card-body p-4">
+            <ul class="nav nav-tabs" id="profileTab" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link active"
+                  id="overview-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#overview-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="overview-tab-pane"
+                  aria-selected="true"
+                >
+                  Overview
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="profile-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#profile-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="profile-tab-pane"
+                  aria-selected="false"
+                >
+                  Profile
+                </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button
+                  class="nav-link"
+                  id="email-tab"
+                  data-bs-toggle="tab"
+                  data-bs-target="#email-tab-pane"
+                  type="button"
+                  role="tab"
+                  aria-controls="email-tab-pane"
+                  aria-selected="false"
+                >
+                  Emails
+                </button>
+              </li>
+            </ul>
+            <div class="tab-content pt-4" id="profileTabContent">
+              <div
+                class="tab-pane fade show active"
+                id="overview-tab-pane"
+                role="tabpanel"
+                aria-labelledby="overview-tab"
+                tabindex="0"
+              >
+                <h5 class="mb-3">About</h5>
+                <p class="lead mb-3"><%= user.about %></p>
+                <h5 class="mb-3">Profile</h5>
+                <div class="row g-0">
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">First Name</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.first_name %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Last Name</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.last_name %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Education</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.education %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Address</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.address %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Country</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.country %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Job</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.job %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Company</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.company %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Phone</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.phone %></div>
+                  </div>
+                  <div
+                    class="col-5 col-md-3 bg-light border-bottom border-white border-3"
+                  >
+                    <div class="p-2">Email</div>
+                  </div>
+                  <div
+                    class="col-7 col-md-9 bg-light border-start border-bottom border-white border-3"
+                  >
+                    <div class="p-2"><%= user.email %></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

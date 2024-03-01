@@ -13,6 +13,8 @@ router.route("/user/logout").get(isloggedin, users.logout);
 router.route("/github/callback").get(users.auth);
 
 router.get("/user/profile", isloggedin, users.profile);
+router.post("/user/profile", isloggedin, users.updateProfile);
+
 router.get("/user/public/:id", isloggedin, users.user);
 
 module.exports = router;
