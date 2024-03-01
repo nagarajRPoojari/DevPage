@@ -1,5 +1,5 @@
 <% layout('layouts/boilerplate') %>
-<form action="/blogs/create" method="post">
+<form action="/blogs/create" method="post" enctype="multipart/form-data">
   <input type="text" id="big-input" placeholder="Enter Title..." name="title" />
   <button
     type="submit"
@@ -24,6 +24,7 @@
     </svg>
     <h1 class="">Post</h1>
   </button>
+
   <div class="row">
     <div class="col">
       <!-- Search Bar -->
@@ -69,7 +70,7 @@
       </div>
     </div>
   </div>
-
+  <input type="file" name="file" />
   <hr />
 
   <textarea

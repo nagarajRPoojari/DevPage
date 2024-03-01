@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <body>
   <link rel="stylesheet" href="/public/css/blog-show.css" />
-  <header class="py-5 bg-light border-bottom mb-4">
+  <header class="py-5 bg-light border-bottom mb-4 header-with-background">
     <div class="container">
       <div class="text-center my-5">
         <h1 class="fw-bolder"><%= blog.title %></h1>
@@ -9,36 +9,41 @@
       </div>
     </div>
   </header>
+
   <!-- Blog content-->
   <div class="container">
     <div class="row">
       <div class="col-lg-7">
-        <!-- Blog post-->
         <article class="blog-post">
-          <!-- Featured image-->
-
-          <!-- Title-->
-
-          <!-- Author and date-->
           <p class="text-muted mb-2">
             Posted by <%= blog.author.username %> on <%=
             blog.posted_date.toDateString() %>
           </p>
 
           <!-- Post content-->
-          <p class="fs-5 mb-4 description"><%= blog.description %></p>
+          <p class="mb-4 description"><%= blog.description %></p>
           <!-- About the author -->
           <hr />
           <p class="mb-4 text"><%= blog.text %></p>
 
           <h2 class="fw-bolder mb-3">About the Author</h2>
-          <div class="row align-items-center">
+
+          <div class="row align-items-center my-5">
             <div class="col-lg-3">
-              <img
-                src="<%= blog.author.avatarURL %>"
-                alt="<%= blog.author.username %>"
-                class="img-fluid rounded-circle mb-3"
-              />
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="100"
+                height="100"
+                fill="currentColor"
+                class="bi bi-person-circle text-muted"
+                viewBox="0 0 16 16"
+              >
+                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                <path
+                  fill-rule="evenodd"
+                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                />
+              </svg>
             </div>
             <div class="col-lg-9">
               <h3 class="mb-3"><%= blog.author.username %></h3>
@@ -164,11 +169,20 @@
 />
 
 <style>
+  .header-with-background {
+    background-image: url("<%= objectUrl %>");
+    background-size: cover; /* Adjust to cover the entire header */
+    background-position: center; /* Center the background image */
+    background-repeat: no-repeat; /* Prevent the background image from repeating */
+    color: white; /* Set text color to white or adjust as needed for contrast */
+  }
+
   .description {
     font-style: italic;
+    font-size: 19px;
   }
   .text {
-    font-size: 10px;
+    font-size: 18px;
   }
   body {
     background-color: #eee;

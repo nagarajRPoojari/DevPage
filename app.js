@@ -36,7 +36,7 @@ app.engine("ejs", ejsMate);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "/views"));
 app.use(urlencoded({ extended: true }));
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 mongoose.set("strictQuery", false);
 
 const methodOverride = require("method-override");
@@ -106,7 +106,6 @@ app.get("/", (req, res) => {
 app.use(flash());
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
-
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   next();
@@ -132,6 +131,18 @@ app.use("/", reviewRoutes);
 
 app.use((req, res, next) => {
   res.setHeader("Cache-Control", "no-store");
+  next();
+});
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError("PAGE NOT FOUND!!!!", 404));
+});
+
+app.use((err, req, res, next) => {
+  const { statusCode = 500 } = err;
+  if (!err.message) err.message = "oh No,Something went wrong";
+  res.status(statusCode).render("error", { err });
+
   next();
 });
 

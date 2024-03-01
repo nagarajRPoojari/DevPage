@@ -16,7 +16,34 @@ db.once("open", () => {
   console.log("database conected");
 });
 //5099803df3f4948b56950098
+const categories = [
+  "Data science",
+  "Machine learning",
+  "Python",
+  "Quantum",
+  "Algorithms",
+  "Internship",
+  "Software",
+];
+
+function getRandomSubset(arr) {
+  const numberOfElements = Math.floor(Math.random() * arr.length) + 1; // Random number of elements
+  const shuffledArr = arr.sort(() => Math.random() - 0.5); // Shuffle the array
+  return shuffledArr.slice(0, numberOfElements); // Return a subset of the shuffled array
+}
 const seeDB = async () => {
-  await Blog.deleteMany({});
+  try {
+    // Construct update query
+    const filter = {}; // Empty filter selects all documents
+    const update = { $set: { category: getRandomSubset(categories) } }; // Update to apply
+
+    // Execute updateMany operation
+    const result = await Blog.updateMany(filter, update);
+
+    console.log(`${result.nModified} blogs updated successfully.`);
+  } catch (error) {
+    console.error("Error updating categories:", error);
+  }
 };
+
 seeDB();

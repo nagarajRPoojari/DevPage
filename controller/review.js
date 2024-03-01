@@ -4,7 +4,6 @@ const Blog = require("../module/Blog");
 module.exports.create = async (req, res) => {
   try {
     const blogId = req.params.id;
-    console.log(req.body);
     const review = await Review.create({
       author: req.user._id,
       blog: blogId,

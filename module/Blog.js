@@ -11,6 +11,7 @@ const BlogSchema = new Schema({
   likes: Number,
   posted_date: { type: Date, default: Date.now },
   last_updated: { type: Date, default: Date.now },
+  image: String,
 });
 
 module.exports = mongoose.model("Blog", BlogSchema);
