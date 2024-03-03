@@ -122,7 +122,7 @@ app.get(
 app.get(
   "/auth/github/callback",
   passport.authenticate("github", {
-    successRedirect: "/blogs",
+    successRedirect: "/auth/user/profile",
     failureRedirect: "/auth/user/login",
   })
 );

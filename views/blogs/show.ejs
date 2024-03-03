@@ -28,7 +28,7 @@
 
           <h2 class="fw-bolder mb-3">About the Author</h2>
 
-          <div class="row align-items-center my-5">
+          <div class="row align-items-center d-flex flex-row p-3 my-5 card">
             <div class="col-lg-3">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -45,23 +45,23 @@
                 />
               </svg>
             </div>
-            <div class="col-lg-9">
-              <h3 class="mb-3"><%= blog.author.username %></h3>
-              <p class="fs-6 text-muted"><%= blog.author.bio %></p>
-              <ul class="list-inline">
-                <li class="list-inline-item">
-                  <strong>Website:</strong>
-                  <a href="<%= blog.author.website %>"
-                    ><%= blog.author.website %></a
-                  >
-                </li>
-                <li class="list-inline-item">
-                  <strong>Email:</strong> <%= blog.author.email %>
-                </li>
-                <li class="list-inline-item">
-                  <strong>Location:</strong> <%= blog.author.location %>
-                </li>
-              </ul>
+            <div class="col-lg-9 row">
+              <div class="col-lg-7">
+                <h3 class="mb-3"><%= blog.author.username %></h3>
+                <p class="fs-6 text-muted"><%= blog.author.bio %></p>
+                <ul class="list-inline">
+                  <li class="list-inline-item text-muted">
+                    <span class="mx-1"><%=blog.author.job%></span>&middot;
+                    <span class="mx-1"><%=blog.author.company%></span>&middot;
+                    <span class="mx-1"><%=blog.author.education%></span>
+                  </li>
+                </ul>
+              </div>
+              <div class="col-lg-4 ms-auto">
+                <button class="btn btn-primary px-5 mx-2">
+                  <span class="mx-1">Visit</span>
+                </button>
+              </div>
             </div>
           </div>
         </article>

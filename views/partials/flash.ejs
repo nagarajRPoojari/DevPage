@@ -1,22 +1,15 @@
-<% if(success && success.length) {%>
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  <strong> <%=success %>.</strong>
+<% if(false) {%>
+<div class="alert alert-info alert-dismissible fade show" role="alert">
+  <strong> Your email is not verified.</strong>
+  <form action="/auth/user/profile/verify" method="get" class="d-inline">
+    <button class="btn btn-primary px-3" type="submit">Verify</button>
+  </form>
   <button
     type="button"
     class="btn-close"
     data-bs-dismiss="alert"
     aria-label="Close"
-  ></button>
-</div>
-
-<% } %> <% if(error && error.length) {%>
-<div class="alert alert-danger alert-dismissible fade show" role="alert">
-  <strong> <%=error %>.</strong>
-  <button
-    type="button"
-    class="btn-close"
-    data-bs-dismiss="alert"
-    aria-label="Close"
+    disabled
   ></button>
 </div>
 

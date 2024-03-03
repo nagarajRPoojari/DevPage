@@ -44,11 +44,25 @@
                   </li>
                 </ul>
                 <div class="d-grid m-0">
-                  <form action="" method="post">
-                    <button class="btn btn-outline-secondary" type="button">
+                  <% if(followingStatus){ %>
+                  <form
+                    action="/auth/user/public/<%=user._id%>/unfollow"
+                    method="post"
+                  >
+                    <button class="btn btn-outline-secondary" type="submit">
+                      Unfollow
+                    </button>
+                  </form>
+                  <% }else { %>
+                  <form
+                    action="/auth/user/public/<%=user._id%>/follow"
+                    method="post"
+                  >
+                    <button class="btn btn-outline-secondary" type="submit">
                       Follow
                     </button>
                   </form>
+                  <% } %>
                 </div>
               </div>
             </div>

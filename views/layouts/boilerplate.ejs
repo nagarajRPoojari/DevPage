@@ -17,16 +17,48 @@
       flex-direction: column;
       min-height: 100vh; /* Ensure the body takes at least the height of the viewport */
     }
+
+    .spinner-wrapper {
+      background-color: rgba(251, 251, 251, 0.9);
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #loader {
+      height: 3em;
+      width: 3em;
+    }
   </style>
 
   <body class="d-flex flex-column">
     <%- include('../partials/navbar') %>
 
     <main class="container mt-5">
+      <div class="spinner-wrapper" id="spinner-wrapper">
+        <div class="spinner-border text-success" id="loader" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <%- include('../partials/flash') %> <%- body %>
     </main>
     <%- include('../partials/footer') %>
   </body>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="/javascripts.js/validateForm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </html>
+
+<script>
+  window.addEventListener("load", (e) => {
+    setTimeout(() => {
+      document.getElementById("spinner-wrapper").style.opacity = 0;
+    }, 500);
+    setTimeout(() => {
+      document.getElementById("spinner-wrapper").style.display = "none";
+    }, 1000);
+  });
+</script>

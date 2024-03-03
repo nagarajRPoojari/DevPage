@@ -1,6 +1,6 @@
 const User = require("../module/User");
 const passport = require("passport");
-
+const { ses } = require("../aws-config");
 module.exports.renderAuth = async (req, res) => {
   res.render("user/login");
 };
@@ -35,14 +35,24 @@ module.exports.auth = (req, res, next) => {
 module.exports.profile = async (req, res, next) => {
   const userId = req.user._id;
   const user = await User.findById(userId);
+  if (user.email_verified != true) {
+    req.flash("error", "Please verify your email address ");
+  }
   res.render("user/profile.ejs", { user: user });
 };
 
 module.exports.user = async (req, res, next) => {
   const userId = req.params.id;
   if (req.user._id == userId) res.redirect("/auth/user/profile");
+
+  const following = req.user._id;
   const user = await User.findById(userId);
-  res.render("user/user.ejs", { user: user });
+  const followings = user.followers;
+  var followingStatus = false;
+  if (followings.includes(following)) {
+    followingStatus = true;
+  }
+  res.render("user/user.ejs", { user: user, followingStatus });
 };
 
 module.exports.updateProfile = async (req, res) => {
@@ -72,4 +82,34 @@ module.exports.updateProfile = async (req, res) => {
   );
 
   res.redirect("/auth/user/profile");
+};
+
+module.exports.follow = async (req, res) => {
+  const userId = req.user._id;
+  const following = req.params.id;
+  const user = await User.findById(userId);
+  const followings = user.following;
+  followings.push(following);
+  await User.updateMany({ _id: userId }, { $set: { following: followings } });
+
+  const following_user = await User.findById(following);
+  const followers = following_user.followers;
+  followers.push(userId);
+  await User.updateMany({ _id: following }, { $set: { followers: followers } });
+  res.redirect(`/auth/user/public/${following}`);
+};
+
+module.exports.unfollow = async (req, res) => {
+  const userId = req.user._id;
+  const following = req.params.id;
+  const user = await User.findById(userId);
+  const followings = user.following;
+  followings.splice(followings.indexOf(following));
+  await User.updateMany({ _id: userId }, { $set: { following: followings } });
+
+  const following_user = await User.findById(following);
+  const followers = following_user.followers;
+  followers.splice(followers.indexOf(userId));
+  await User.updateMany({ _id: following }, { $set: { followers: followers } });
+  res.redirect(`/auth/user/public/${following}`);
 };

@@ -6,3 +6,4 @@ AWS.config.update({
   region: process.env.AWS_REGION,
 });
 module.exports.s3 = new AWS.S3();
+module.exports.ses = new AWS.SES({ apiVersion: "2010-12-01" });
