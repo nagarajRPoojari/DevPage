@@ -8,7 +8,7 @@ const {
   isNotFollowing,
   isEmailVerified,
 } = require("../middlewares");
-const catchAsync = require("../utilities/catchAsync");
+
 router.get("/", users.renderAuth);
 router.route("/user/register").get(users.register);
 
