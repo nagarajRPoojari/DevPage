@@ -1,7 +1,7 @@
 const Blog = require("../module/Blog");
 const { s3 } = require("../aws-config");
 const { v4: uuid } = require("uuid");
-const ExpressError = require("../utilities/ExpressError").default;
+const ExpressError = require("../utilities/ExpressError");
 module.exports.allblogs = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = 5;
