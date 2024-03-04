@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const catchAsync = require("../utilities/catchAsync");
+const catchAsync = require("../utilities/catchAsync").default;
 const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();

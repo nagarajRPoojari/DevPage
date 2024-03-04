@@ -1,4 +1,4 @@
-const ExpressError = require("./utilities/ExpressError");
+const ExpressError = require("./utilities/ExpressError").default;
 const Blog = require("./module/Blog");
 const User = require("./module/User");
 module.exports.isloggedin = (req, res, next) => {
